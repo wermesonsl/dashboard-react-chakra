@@ -1,0 +1,13 @@
+table tr th:last-child,
+table tr td:last-child {
+  text-align: right;
+}
+
+table tr th:last-child span {
+  left: 0;
+  right: auto;
+}
+
+table tr td p {
+  text-align: right;
+}

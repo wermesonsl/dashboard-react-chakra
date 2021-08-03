@@ -1,38 +1,38 @@
-import * as React from "react"
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+import { Box, ChakraProvider, Grid } from "@chakra-ui/react";
+import * as React from "react";
+import Filtro from "./Components/system/BarraFiltro";
+import BarraSuperior from "./Components/system/BarraSuperior";
+import Graficos from "./Components/system/Graficos";
+import MenuLateral from "./Components/system/MenuLateral";
+import Resumo from "./Components/system/Resumo";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
+export const App = () => {
+
+  const [widgets, setWidgets] = React.useState({
+    resumo: true,
+    revenue: true,
+    expenses: true,
+    fleets: true,
+    emission: true
+  });
+
+  const [ativaMenu, setAtivaMenu] = React.useState(true);
+
+
+  return (
+    <ChakraProvider>
+      <BarraSuperior ativaMenu={ativaMenu} setAtivaMenu={setAtivaMenu} />
+      <Grid templateColumns={ativaMenu ? "200px 1fr" : "100px 1fr"}>
+        <MenuLateral ativaMenu={ativaMenu} />
+        <Grid minH="calc(100vh - 50px)" alignContent="flex-start" bgColor="#f2f4f5">
+          <Filtro setWidgets={setWidgets} />
+          <Box p="3">
+            {widgets.resumo ? <Resumo /> : null}
+            <Graficos widgets={widgets} />
+
+          </Box>
+        </Grid>
       </Grid>
-    </Box>
-  </ChakraProvider>
-)
+    </ChakraProvider>
+  )
+}
