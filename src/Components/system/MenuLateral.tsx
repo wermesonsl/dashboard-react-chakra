@@ -127,7 +127,7 @@ const MenuLateral = (props: any) => {
   ]);
 
   return (
-    <div>
+    <div style={{ boxShadow: "#d8d8d8 8px 0px 8px -5px", zIndex: 10 }}>
       <Flex justify="space-between" direction="column" fontSize="14px">
         {menu.map((item: any, index: number) => {
           return <ItemExpansivel value={item} key={index} onChange={(event: any) => inputChangedHandler(event)} ativaMenu={props.ativaMenu} />
